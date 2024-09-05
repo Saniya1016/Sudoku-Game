@@ -3,7 +3,7 @@
 //onl difference being - we iterate oover a random sample to make the board look different
 
 //dfs on the empty board 
-//fill a cell with a random no. => check if it beaaks the board
+//fill a cell with a random no. => check if it breaks the board
 //if it does dont place the no. in the grid and remove it from the shuffle sample space (o we ont continuosly iterate on that no.)
 
 const grid = Array(9).fill().map(() => Array(9).fill(''));
@@ -33,19 +33,41 @@ const init_cache = () => {
 const dfs = (row, col) => {
 
     if(row >= 9){
-        return
+        return true;
     }
 
     if(col >= 9){
         return dfs(row+1, 0);
     }
 
+    const key = `${Math.floor(row / 3)},${Math.floor(col / 3)}`;
     //iterate over random sample => randomize later
-    for (let i = 1; i < 10; i++){
-        
+    for (let i = 1; i <= 9; i++){
 
+        if(row_check[row].has(i) || col_check[col].has(i) || sub_check[key].has(i)){
+            continue;
+        }
+
+        grid[row][col] = i;
+        row_check[row].add(i);
+        col_check[col].add(i);
+        sub_check[key].add(i);
+
+        if(dfs(row, col+1)){
+            return true;
+        }
+
+        grid[row][col] = '';
+        row_check[row].delete(i);
+        col_check[col].delete(i);
+        sub_check[key].delete(i);
 
     }
 
+    return false;
 
 }
+
+init_cache();
+dfs(0,0);
+console.log(grid);
