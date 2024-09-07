@@ -1,16 +1,18 @@
-
+//Notes:
 //generating a sudoku board is the same as solving a blank sudoku!
-//onl difference being - we iterate oover a random sample to make the board look different
+//onl difference being - we iterate over a random sample to make the board look different
 
-//dfs on the empty board 
+//backtracking on the empty board 
 //fill a cell with a random no. => check if it breaks the board
-//if it does dont place the no. in the grid and remove it from the shuffle sample space (o we ont continuosly iterate on that no.)
+//if it does dont place the no. in the grid
 
 const grid = Array(9).fill().map(() => Array(9).fill(''));
 
 const row_check = {} //repitition in the same row
 const col_check = {} //repitition in the same col
 const sub_check = {} //repitition in the same sub-grid
+
+const remove = {} //save removed cells
 
 
 const init_cache = () => {
@@ -57,7 +59,7 @@ const dfs = (row, col) => {
     const key = `${Math.floor(row / 3)},${Math.floor(col / 3)}`;
     const arr = Shuffle([1,2,3,4,5,6,7,8,9]);
 
-    //iterate over random sample => randomize later
+    //iterate over random sample
     for (let i of arr){
 
         if(row_check[row].has(i) || col_check[col].has(i) || sub_check[key].has(i)){
@@ -84,43 +86,69 @@ const dfs = (row, col) => {
 
 }
 
-init_cache();
-dfs(0,0);
-console.log(grid);
+function isValidSudoku(grid) {
+    const size = 9;
+    
+    // Check rows
+    for (let i = 0; i < size; i++) {
+        const row = new Set(grid[i]);
+        if (row.size !== size) return false;
+    }
+    
+    // Check columns
+    for (let j = 0; j < size; j++) {
+        const column = new Set();
+        for (let i = 0; i < size; i++) {
+            column.add(grid[i][j]);
+        }
+        if (column.size !== size) return false;
+    }
+    
+    // Check 3x3 subgrids
+    for (let blockRow = 0; blockRow < 3; blockRow++) {
+        for (let blockCol = 0; blockCol < 3; blockCol++) {
+            const subgrid = new Set();
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const value = grid[blockRow * 3 + i][blockCol * 3 + j];
+                    subgrid.add(value);
+                }
+            }
+            if (subgrid.size !== size) return false;
+        }
+    }
+    
+    return true;
+}
 
-// function isValidSudoku(grid) {
-//     const size = 9;
-    
-//     // Check rows
-//     for (let i = 0; i < size; i++) {
-//         const row = new Set(grid[i]);
-//         if (row.size !== size) return false;
-//     }
-    
-//     // Check columns
-//     for (let j = 0; j < size; j++) {
-//         const column = new Set();
-//         for (let i = 0; i < size; i++) {
-//             column.add(grid[i][j]);
-//         }
-//         if (column.size !== size) return false;
-//     }
-    
-//     // Check 3x3 subgrids
-//     for (let blockRow = 0; blockRow < 3; blockRow++) {
-//         for (let blockCol = 0; blockCol < 3; blockCol++) {
-//             const subgrid = new Set();
-//             for (let i = 0; i < 3; i++) {
-//                 for (let j = 0; j < 3; j++) {
-//                     const value = grid[blockRow * 3 + i][blockCol * 3 + j];
-//                     subgrid.add(value);
-//                 }
-//             }
-//             if (subgrid.size !== size) return false;
-//         }
-//     }
-    
-//     return true;
-// }
+const removeCells = (difficulty) => {
+    console.assert(isValidSudoku(grid))
+    const cells = [];
+    for(let i = 0; i <= 8; i++){
+        for(let j = 0; j <= 8; j++){
+            cells.push([i,j]);
+        }
+    }
 
-// console.log(isValidSudoku(grid)); // Check if the grid is valid
+    Shuffle(cells);
+    while(difficulty > 0){
+        const r = cells.shift();
+        const key = `${r[0]},${r[1]}`
+        remove[key]  = grid[r[0]][r[1]]
+        grid[r[0]][r[1]] = '-'
+        difficulty-=1;
+    }
+
+}
+
+const generateBoard = (difficulty) => {
+
+    init_cache();
+    dfs(0,0);
+    removeCells(difficulty);
+    console.log(grid);
+    console.log(remove);
+
+}
+
+generateBoard(40);
