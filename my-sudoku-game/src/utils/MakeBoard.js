@@ -12,23 +12,36 @@ const row_check = {} //repitition in the same row
 const col_check = {} //repitition in the same col
 const sub_check = {} //repitition in the same sub-grid
 
+const r_check = {}; //for valid sudoku
+const c_check = {}; //for valid sudoku
+const s_check = {}; //for valid sudoku
+
 const remove = {} //save removed cells
 
 
+
+//initialise all the memory we have
 const init_cache = () => {
 
     for (let i = 0; i < 9; i++){
+
         row_check[i] = new Set([]);
         col_check[i] = new Set([]);
+
+        r_check[i] = new Set([]);
+        c_check[i] = new Set([]);
     }
 
     for(let i = 0; i <= 2; i++){
         for(let j = 0; j <= 2; j++){
             sub_check[`${i},${j}`] = new Set([]);
+            s_check[`${i},${j}`] = new Set([]);
         }
     }
 
 }
+
+
 
 const Shuffle = (array) => {
 
@@ -46,6 +59,7 @@ const Shuffle = (array) => {
 
 
 
+//backtracking algorithm to solve an empty board randomly - to generate different problems
 const dfs = (row, col) => {
 
     if(row >= 9){
@@ -86,60 +100,64 @@ const dfs = (row, col) => {
 
 }
 
+
+
+//check validity of the generated board
 function isValidSudoku(grid) {
-    const size = 9;
     
-    // Check rows
-    for (let i = 0; i < size; i++) {
-        const row = new Set(grid[i]);
-        if (row.size !== size) return false;
-    }
-    
-    // Check columns
-    for (let j = 0; j < size; j++) {
-        const column = new Set();
-        for (let i = 0; i < size; i++) {
-            column.add(grid[i][j]);
-        }
-        if (column.size !== size) return false;
-    }
-    
-    // Check 3x3 subgrids
-    for (let blockRow = 0; blockRow < 3; blockRow++) {
-        for (let blockCol = 0; blockCol < 3; blockCol++) {
-            const subgrid = new Set();
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    const value = grid[blockRow * 3 + i][blockCol * 3 + j];
-                    subgrid.add(value);
-                }
+    for(let i = 0; i < 9; i++){
+
+        for(let j = 0; j < 9; j++){
+
+            if(grid[i][j] === ''){
+                continue;
             }
-            if (subgrid.size !== size) return false;
+
+            const key = `${Math.floor(i / 3)},${Math.floor(j / 3)}`;
+            if(r_check[i].has(grid[i][j]) || c_check[j].has(grid[i][j]) || s_check[key].has(grid[i][j])){
+                return false;
+            }
+
+            r_check[i].add(grid[i][j]);
+            c_check[j].add(grid[i][j]);
+            s_check[key].add(grid[i][j]);
         }
     }
-    
     return true;
 }
 
+
+
+//remove difficulty number of cells from the board for the user to solve
 const removeCells = (difficulty) => {
-    console.assert(isValidSudoku(grid));
+
+    console.log(isValidSudoku(grid));
+
     const cells = [];
+
     for(let i = 0; i <= 8; i++){
+
         for(let j = 0; j <= 8; j++){
+
             cells.push([i,j]);
         }
     }
 
     Shuffle(cells);
+
     while(difficulty > 0){
+
         const r = cells.shift();
         const key = `${r[0]},${r[1]}`
         remove[key]  = grid[r[0]][r[1]]
         grid[r[0]][r[1]] = ''
-        difficulty-=1;
+        difficulty -= 1;
+
     }
 
 }
+
+
 
 const generateBoard = (difficulty) => {
 
