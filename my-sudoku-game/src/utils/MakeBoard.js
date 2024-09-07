@@ -122,7 +122,7 @@ function isValidSudoku(grid) {
 }
 
 const removeCells = (difficulty) => {
-    console.assert(isValidSudoku(grid))
+    console.assert(isValidSudoku(grid));
     const cells = [];
     for(let i = 0; i <= 8; i++){
         for(let j = 0; j <= 8; j++){
@@ -135,7 +135,7 @@ const removeCells = (difficulty) => {
         const r = cells.shift();
         const key = `${r[0]},${r[1]}`
         remove[key]  = grid[r[0]][r[1]]
-        grid[r[0]][r[1]] = '-'
+        grid[r[0]][r[1]] = ''
         difficulty-=1;
     }
 
@@ -149,6 +149,10 @@ const generateBoard = (difficulty) => {
     console.log(grid);
     console.log(remove);
 
+    return grid;
+
 }
 
-generateBoard(40);
+// generateBoard(40); //as input number increases => more cells are removed => difficulty increases
+
+export default generateBoard;

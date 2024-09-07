@@ -1,10 +1,11 @@
 import React from 'react';
 import Cell from './Cell';
+import generateBoard from '../utils/makeBoard';
 
 const Board = () => {
 
   // Create a 9x9 grid filled with empty strings
-  const grid = Array(9).fill().map(() => Array(9).fill(''));
+  const grid = generateBoard(30);
 
   return (
     <div className="grid grid-cols-9 gap-0.5 p-1 bg-gray-300 max-w-fit">
