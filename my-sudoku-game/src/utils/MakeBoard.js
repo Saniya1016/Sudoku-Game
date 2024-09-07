@@ -149,7 +149,7 @@ const generateBoard = (difficulty) => {
     console.log(grid);
     console.log(remove);
 
-    return grid;
+    return {'grid': grid, 'remove': remove, 'row_check': row_check, 'col_check': col_check, 'sub_check': sub_check};
 
 }
 
