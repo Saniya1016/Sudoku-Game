@@ -1,6 +1,6 @@
 //Notes:
 //generating a sudoku board is the same as solving a blank sudoku!
-//onl difference being - we iterate over a random sample to make the board look different
+//only difference being - we iterate over a random sample to make the board look different
 
 //backtracking on the empty board 
 //fill a cell with a random no. => check if it breaks the board
@@ -180,6 +180,6 @@ const generateBoard = (difficulty) => {
 
 }
 
-generateBoard(40); //as input number increases => more cells are removed => difficulty increases
+// generateBoard(40); //as input number increases => more cells are removed => difficulty increases
 
 export default generateBoard;
