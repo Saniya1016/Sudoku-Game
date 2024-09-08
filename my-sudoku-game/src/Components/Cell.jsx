@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 const Cell = ({inputValue, gameState, row, col, checkValid}) => {
     const [value, setValue] = useState(inputValue);
+    const [isValid, setIsValid] = useState(true);
     const isEditable = inputValue === '';
 
     const handleChange = (event) => {
@@ -10,14 +11,15 @@ const Cell = ({inputValue, gameState, row, col, checkValid}) => {
         if(isEditable && (newValue === '' || newValue >= 1 && newValue <= 9)){
             setValue(newValue);
             if(newValue !== ''){
-                checkValid(gameState, parseInt(newValue), row, col);
+                setIsValid(checkValid(gameState, parseInt(newValue), row, col));
             }
         }
 
     }
 
     return (
-        <div className='h-16 w-16 flex bg-gray-200 items-center justify-center'>
+        <div className={`h-16 w-16 flex items-center justify-center bg-gray-200 
+            border-2 ${isValid ? 'border-gray-300' : 'border-red-500'}`}>
             <input 
                 type='number' 
                 value={value}
