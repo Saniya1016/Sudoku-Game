@@ -1,10 +1,11 @@
 import React from 'react'
 
-const Controls = () => {
+const Header = () => {
   return (
     <div>
+      
     </div>
   )
 }
 
-export default Controls
+export default Header

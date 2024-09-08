@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
+import isValidMove from '../utils/CheckMove';
 
-const Cell = ({inputValue, gameState, row, col, checkValid}) => {
+
+const Cell = ({inputValue, gameState, row, col, setGameState}) => {
+
     const [value, setValue] = useState(inputValue);
     const [isValid, setIsValid] = useState(true);
     const isEditable = inputValue === '';
+
 
     const handleChange = (event) => {
 
@@ -11,7 +15,15 @@ const Cell = ({inputValue, gameState, row, col, checkValid}) => {
         if(isEditable && (newValue === '' || newValue >= 1 && newValue <= 9)){
             setValue(newValue);
             if(newValue !== ''){
-                setIsValid(checkValid(gameState, parseInt(newValue), row, col));
+
+                if(isValidMove(gameState, parseInt(newValue), row, col)){
+                    setGameState(gameState);
+                    console.log(gameState);
+                    setIsValid(true);
+                    
+                } else{
+                    setIsValid(false);
+                }
             }
         }
 
