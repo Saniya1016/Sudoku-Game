@@ -17,6 +17,7 @@ const isValidMove = (gameState, val, row, col) => {
     s_check[key].add(val);
 
     grid[row][col] = val;
+    
     return true;
 
 }

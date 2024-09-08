@@ -11,6 +11,7 @@ const Board = () => {
   const checkValid = (gameState, val, row, col) => {
     if(isValidMove(gameState, val, row, col)){
         setGameState(gameState);
+        console.log(gameState);
         return true;
     }
     return false;

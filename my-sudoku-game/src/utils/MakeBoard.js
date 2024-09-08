@@ -148,9 +148,18 @@ const removeCells = (difficulty) => {
     while(difficulty > 0){
 
         const r = cells.shift();
-        const key = `${r[0]},${r[1]}`
-        remove[key]  = grid[r[0]][r[1]]
-        grid[r[0]][r[1]] = ''
+        const i = r[0];
+        const j = r[1];
+        const key = `${i},${j}`
+
+        remove[key]  = grid[i][j]
+        row_check[i].delete(grid[i][j]);
+        col_check[j].delete(grid[i][j]);
+
+        const s_key = `${Math.floor(i / 3)},${Math.floor(j / 3)}`
+        sub_check[s_key].delete(grid[i][j]);
+
+        grid[i][j] = ''
         difficulty -= 1;
 
     }
@@ -171,6 +180,6 @@ const generateBoard = (difficulty) => {
 
 }
 
-// generateBoard(40); //as input number increases => more cells are removed => difficulty increases
+generateBoard(40); //as input number increases => more cells are removed => difficulty increases
 
 export default generateBoard;

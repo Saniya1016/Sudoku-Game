@@ -9,7 +9,9 @@ const Cell = ({inputValue, gameState, row, col, checkValid}) => {
         const newValue = event.target.value;
         if(isEditable && (newValue === '' || newValue >= 1 && newValue <= 9)){
             setValue(newValue);
-            checkValid(gameState, newValue, row, col);
+            if(newValue !== ''){
+                checkValid(gameState, parseInt(newValue), row, col);
+            }
         }
 
     }
