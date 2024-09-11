@@ -22,4 +22,23 @@ const isValidMove = (gameState, val, row, col) => {
 
 }
 
-export default isValidMove;
+const removePrevious = (gameState, prevVal, row, col) => {
+
+    if(prevVal !== ''){
+
+        const grid = gameState['grid'];
+        const r_check = gameState['row_check'];
+        const c_check = gameState['col_check'];
+        const s_check = gameState['sub_check'];
+
+        r_check[row].delete(prevVal);
+        c_check[col].delete(prevVal);
+
+        const key = `${Math.floor(row / 3)},${Math.floor(col / 3)}`
+        s_check[key].delete(prevVal);
+
+        grid[row][col] = '';
+    }
+};
+
+export default {isValidMove, removePrevious};

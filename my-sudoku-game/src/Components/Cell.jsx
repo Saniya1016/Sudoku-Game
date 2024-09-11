@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import isValidMove from '../utils/CheckMove';
+import CheckMove from '../utils/CheckMove.js';
 
 
 const Cell = ({inputValue, gameState, row, col, setGameState}) => {
@@ -13,10 +13,15 @@ const Cell = ({inputValue, gameState, row, col, setGameState}) => {
 
         const newValue = event.target.value;
         if(isEditable && (newValue === '' || newValue >= 1 && newValue <= 9)){
+
+            //make sure to remove current value  from gameState
+            CheckMove.removePrevious(gameState, parseInt(value), row, col);
+
             setValue(newValue);
+
             if(newValue !== ''){
 
-                if(isValidMove(gameState, parseInt(newValue), row, col)){
+                if(CheckMove.isValidMove(gameState, parseInt(newValue), row, col)){
                     setGameState(gameState);
                     console.log(gameState);
                     setIsValid(true);
