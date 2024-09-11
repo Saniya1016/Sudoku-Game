@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import Cell from './Cell';
 import generateBoard from '../utils/makeBoard';
 
-const Board = () => {
+const Board = ({difficulty}) => {
 
-  const initGameState = generateBoard(30);
+  const initGameState = generateBoard(difficulty);
   const [gameState, setGameState] = useState(initGameState);
 
   return (
