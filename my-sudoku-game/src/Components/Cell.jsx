@@ -15,7 +15,7 @@ const Cell = ({inputValue, gameState, row, col, setGameState}) => {
         if(isEditable && (newValue === '' || newValue >= 1 && newValue <= 9)){
 
             //make sure to remove current value  from gameState
-            CheckMove.removePrevious(gameState, parseInt(value), row, col);
+            CheckMove.removePrevious(gameState, isValid, parseInt(value), row, col);
 
             setValue(newValue);
 

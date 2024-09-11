@@ -22,9 +22,9 @@ const isValidMove = (gameState, val, row, col) => {
 
 }
 
-const removePrevious = (gameState, prevVal, row, col) => {
+const removePrevious = (gameState, valid, prevVal, row, col) => {
 
-    if(prevVal !== ''){
+    if(prevVal !== '' && valid){
 
         const grid = gameState['grid'];
         const r_check = gameState['row_check'];
