@@ -1,5 +1,5 @@
 const solve = (gameState, full) => {
-
+    
     const { grid, row_check, col_check, sub_check, remove } = gameState;
     const keys_array = Array.from(Object.keys(remove));
     let steps = (full)? keys_array.length : 1;
@@ -21,8 +21,16 @@ const solve = (gameState, full) => {
         steps-=1;
 
     }
+    
+    const newGrid = grid.map(row => [...row]);
 
-    return {...gameState};
+    return { 
+        grid: newGrid, // Deep clone of grid
+        row_check: { ...row_check },
+        col_check: { ...col_check },
+        sub_check: { ...sub_check },
+        remove: { ...remove }
+    };
 }
 
 export default solve;

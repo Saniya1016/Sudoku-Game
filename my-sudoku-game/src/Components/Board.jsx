@@ -7,14 +7,15 @@ const Board = ({ difficulty }) => {
 
       
   const [gameState, setGameState] = useState(generateBoard(difficulty));
+  const { grid } = gameState;
 
   return (
-    <div>
+    <div className='flex flex-col items-center space-y-10'>
 
       <Solve gameState={gameState} setGameState={setGameState}/>
 
       <div className="grid grid-cols-9 gap-0.5 p-1 bg-gray-300 max-w-fit">
-        {gameState['grid'].map((row, i) => 
+        {grid.map((row, i) => 
 
           row.map((cellValue, j) => (
             <div 
