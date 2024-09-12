@@ -14,13 +14,13 @@ const Controls = ({setDifficulty}) => {
 
     switch (difficulty) {
       case 'Easy':
-        setDifficulty(10);
+        setDifficulty(30);
         break;
       case 'Medium':
-        setDifficulty(50);
+        setDifficulty(42);
         break;
       case 'Hard':
-        setDifficulty(70);
+        setDifficulty(50);
         break;
       default:
         setDifficulty(-1);
