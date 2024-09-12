@@ -34,7 +34,7 @@ const Controls = ({setDifficulty}) => {
 
       <div className='flex flex-row items-center'>
         <button 
-          className='flex justify-center items-center w-full px-4 py-2 bg-blue-500 rounded-md text-center font-bold text-white text-xl hover:bg-blue-600'
+          className='flex justify-center items-center w-full px-4 py-2 bg-sky-400 rounded-md text-center font-bold text-black text-xl hover:bg-blue-600'
           onClick={() => setIsOpen(!isOpen)}> 
               {selectedDifficulty} 
             <FaChevronDown className="ml-2 mt-1" />
