@@ -1,16 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Cell from './Cell';
-import generateBoard from '../utils/makeBoard';
 
-const Board = ({difficulty}) => {
-
-  const initGameState = generateBoard(difficulty);
-  const [gameState, setGameState] = useState(initGameState);
-
+const Board = ({ gameState, setGameState }) => {
   return (
     <div className="grid grid-cols-9 gap-0.5 p-1 bg-gray-300 max-w-fit">
       {gameState['grid'].map((row, i) => 
-
         row.map((cellValue, j) => (
           <div 
             key={`${i}-${j}`} 
@@ -20,7 +14,6 @@ const Board = ({difficulty}) => {
             `}
           >
             <Cell inputValue={cellValue} gameState={gameState} row={i} col={j} setGameState={setGameState}/>
-
           </div>
         ))
       )}

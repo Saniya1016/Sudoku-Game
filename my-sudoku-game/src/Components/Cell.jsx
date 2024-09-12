@@ -6,7 +6,9 @@ const Cell = ({inputValue, gameState, row, col, setGameState}) => {
 
     const [value, setValue] = useState(inputValue);
     const [isValid, setIsValid] = useState(true);
-    const isEditable = inputValue === '';
+   
+    const key = `${row},${col}`;
+    const isEditable = key in gameState['remove'];
 
 
     const handleChange = (event) => {
