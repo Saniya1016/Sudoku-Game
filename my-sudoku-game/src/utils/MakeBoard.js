@@ -6,22 +6,34 @@
 //fill a cell with a random no. => check if it breaks the board
 //if it does dont place the no. in the grid
 
-const grid = Array(9).fill().map(() => Array(9).fill(''));
+let grid = Array(9).fill().map(() => Array(9).fill(''));
 
-const row_check = {} //repitition in the same row
-const col_check = {} //repitition in the same col
-const sub_check = {} //repitition in the same sub-grid
+let row_check = {} //repitition in the same row
+let col_check = {} //repitition in the same col
+let sub_check = {} //repitition in the same sub-grid
 
-const r_check = {}; //for valid sudoku
-const c_check = {}; //for valid sudoku
-const s_check = {}; //for valid sudoku
+let r_check = {}; //for valid sudoku
+let c_check = {}; //for valid sudoku
+let s_check = {}; //for valid sudoku
 
-const remove = {} //save removed cells
+let remove = {} //save removed cells
 
 
 
 //initialise all the memory we have
 const init_cache = () => {
+
+    grid = Array(9).fill().map(() => Array(9).fill(''));
+
+    row_check = {} //repitition in the same row
+    col_check = {} //repitition in the same col
+    sub_check = {} //repitition in the same sub-grid
+
+    r_check = {}; //for valid sudoku
+    c_check = {}; //for valid sudoku
+    s_check = {}; //for valid sudoku
+
+    remove = {} //save removed cells
 
     for (let i = 0; i < 9; i++){
 
@@ -164,12 +176,14 @@ const removeCells = (difficulty) => {
 
     }
 
+    console.log(Object.keys(remove).length);
+
 }
 
 
 
 const generateBoard = (difficulty) => {
-
+    console.log(difficulty);
     init_cache();
     dfs(0,0);
     removeCells(difficulty);

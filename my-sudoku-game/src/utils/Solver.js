@@ -1,25 +1,28 @@
-const solveOneStep = (gameState) => {
+const solve = (gameState, full) => {
 
-    const grid = gameState['grid'];
-    const r_check = gameState['row_check'];
-    const c_check = gameState['col_check'];
-    const s_check = gameState['sub_check'];
-    const remove =  gameState['remove'];
-
+    const { grid, row_check, col_check, sub_check, remove } = gameState;
     const keys_array = Array.from(Object.keys(remove));
+    let steps = (full)? keys_array.length : 1;
 
-    const key = keys_array.shift();
-    const solution = remove[key];
+    while(steps > 0 && keys_array.length > 0){
 
-    delete remove[key]
+        const key = keys_array.shift();
+        const solution = remove[key];
+        delete remove[key];
 
-    const i = key[0];
-    const j = key[2];
+        const i = key[0];
+        const j = key[2];
 
-    grid[i][j] = solution;
-    r_check[i].add(solution);
-    c_check[j].add(solution);
+        grid[i][j] = solution;
+        row_check[i].add(solution);
+        col_check[j].add(solution);
+        const sub_key = `${Math.floor(i / 3)},${Math.floor(j / 3)}`;
+        sub_check[sub_key].add(solution);
+        steps-=1;
 
-    const s_key = `${Math.floor(i / 3)},${Math.floor(j / 3)}`;
-    s_check[s_key].add(solution);
+    }
+
+    return {...gameState};
 }
+
+export default solve;

@@ -14,7 +14,7 @@ const Controls = ({setDifficulty}) => {
 
     switch (difficulty) {
       case 'Easy':
-        setDifficulty(30);
+        setDifficulty(10);
         break;
       case 'Medium':
         setDifficulty(50);
@@ -30,23 +30,18 @@ const Controls = ({setDifficulty}) => {
   return (
     <div className="relative inline-block text-left">
 
-      <div className='flex flex-col space-y-10'>
+      
 
-        <div className='flex flex-row items-center'>
-          <button 
-            className='flex justify-center items-center w-full px-4 py-2 bg-blue-500 rounded-md text-center font-bold text-white text-xl hover:bg-blue-600'
-            onClick={() => setIsOpen(!isOpen)}> 
-                {selectedDifficulty} 
-              <FaChevronDown className="ml-2 mt-1" />
-            </button>
-        </div>
-
-        <div className='flex flex-row space-x-10'>
-          <button className='text-white bg-yellow-300 hover:bg-yellow-200 px-4 py-2 rounded-lg'> Reveal One Step </button>
-          <button className='text-white bg-green-500 hover:bg-green-300 px-4 py-2 rounded-lg'> See Solution </button>
-        </div>
-
+      <div className='flex flex-row items-center'>
+        <button 
+          className='flex justify-center items-center w-full px-4 py-2 bg-blue-500 rounded-md text-center font-bold text-white text-xl hover:bg-blue-600'
+          onClick={() => setIsOpen(!isOpen)}> 
+              {selectedDifficulty} 
+            <FaChevronDown className="ml-2 mt-1" />
+          </button>
       </div>
+
+      
 
       {
         isOpen && (

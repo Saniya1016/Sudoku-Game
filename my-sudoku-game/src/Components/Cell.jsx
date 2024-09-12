@@ -2,30 +2,30 @@ import React, { useState } from 'react'
 import CheckMove from '../utils/CheckMove.js';
 
 
-const Cell = ({inputValue, gameState, row, col, setGameState}) => {
+const Cell = ({inputValue, gameState, setGameState, row, col}) => {
 
     const [value, setValue] = useState(inputValue);
     const [isValid, setIsValid] = useState(true);
-   
     const key = `${row},${col}`;
-    const isEditable = key in gameState['remove'];
+    const [isEditable] = useState(key in gameState.remove);
 
 
     const handleChange = (event) => {
 
-        const newValue = event.target.value;
-        if(isEditable && (newValue === '' || newValue >= 1 && newValue <= 9)){
+        const checkVal = event.target.value;
+        const newValue = (checkVal === '')? -1 : checkVal;
+
+        if(isEditable && (newValue === -1 || newValue >= 1 && newValue <= 9)){
 
             //make sure to remove current value  from gameState
             CheckMove.removePrevious(gameState, isValid, parseInt(value), row, col);
 
-            setValue(newValue);
+            setValue(checkVal);
 
-            if(newValue !== ''){
+            if(newValue !== -1){
 
                 if(CheckMove.isValidMove(gameState, parseInt(newValue), row, col)){
                     setGameState(gameState);
-                    console.log(gameState);
                     setIsValid(true);
                     
                 } else{
@@ -41,7 +41,7 @@ const Cell = ({inputValue, gameState, row, col, setGameState}) => {
             border-2 ${isValid ? 'border-gray-300' : 'border-red-500'}`}>
             <input 
                 type='number' 
-                value={value}
+                value={(value == -1)? '': value}
                 onChange={handleChange}
                 className='w-full h-full text-center bg-transparent outline-none text-xl font-bold' 
                 min={1} 
