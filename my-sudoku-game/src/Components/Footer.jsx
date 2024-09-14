@@ -1,21 +1,22 @@
-import React from 'react'
-import { GrPowerReset } from "react-icons/gr";
+import React from 'react';
+import { FaRedo } from 'react-icons/fa';
 
-const Footer = ({setKey}) => {
-    const handleClick = () => {
-        setKey(prevKey => prevKey+1);
+const Footer = ({ setKey }) => {
+    const handleReset = () => {
+        setKey(prevKey => prevKey + 1); // Refresh the board
     }
-  return (
-    <div>
-      <button className='bg-purple-400 rounded-xl font-bold px-4 py-2 hover:bg-purple-300' onClick={handleClick}> 
-        <div className='flex flex-row space-x-2'>
-            <span>Reset</span>
-            <GrPowerReset className='font-extrabold text-xl'/>
+
+    return (
+        <div className="flex justify-center items-center py-4">
+            <button 
+                className='bg-green-500 hover:bg-green-300 px-4 py-2 rounded-lg flex items-center space-x-2 text-white font-bold'
+                onClick={handleReset}
+            >
+                <FaRedo />
+                <span>Reset Game</span>
+            </button>
         </div>
-    </button>
-        
-    </div>
-  )
+    );
 }
 
-export default Footer
+export default Footer;

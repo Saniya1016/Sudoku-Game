@@ -28,7 +28,7 @@ const Controls = ({setDifficulty}) => {
   }
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left py-8">
 
       
 
