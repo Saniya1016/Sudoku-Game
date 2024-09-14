@@ -13,7 +13,7 @@ function App() {
   }, [difficulty]);
 
   return (
-    <div className="flex flex-col justify-between items-center h-screen bg-black p-4">
+    <div className="flex flex-col justify-between items-center min-h-screen bg-black p-8">
       <Header />
       <div className="flex flex-col flex-grow justify-center items-center space-y-8">
         <Controls setDifficulty={setDifficulty} />
