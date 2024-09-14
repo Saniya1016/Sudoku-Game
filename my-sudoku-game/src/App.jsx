@@ -9,22 +9,21 @@ function App() {
   const [key, setKey] = useState(0);
 
   useEffect(() => {
-    // Increment the key whenever difficulty changes
     setKey(prevKey => prevKey + 1);
   }, [difficulty]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black p-8">
+    <div className="flex flex-col justify-between items-center min-h-screen bg-black p-2 sm:p-4 md:p-6 lg:p-8">
       <Header />
-      <div className="flex flex-col flex-grow justify-center items-center space-y-8">
+      <div className="flex flex-col flex-grow justify-center items-center space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 w-full max-w-lg">
         <Controls setDifficulty={setDifficulty} />
         {difficulty > -1 && (
-          <div className="flex flex-col items-center space-y-11">
+          <div className="flex flex-col items-center space-y-4 sm:space-y-6 md:space-y-8 w-full">
             <Board key={key} difficulty={difficulty} />
+            <Footer setKey={setKey}/>
           </div>
         )}
       </div>
-      <Footer setKey={setKey} />
     </div>
   );
 }
