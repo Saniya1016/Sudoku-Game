@@ -10,7 +10,7 @@ To play the game, follow these steps:
 
 ### 1. Open the Game
 
-Go to the deployed version of the game at [your-deployed-url](https://saniya1016.github.io/Sudoku-Game/).
+Go to the deployed version of the game at [Sudoku-Game](https://saniya1016.github.io/Sudoku-Game/).
 
 ### 2. Choose Difficulty
 
