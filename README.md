@@ -1,6 +1,4 @@
-Certainly! Here's a simple README template for playing your Sudoku game:
 
----
 
 # Sudoku Game
 
