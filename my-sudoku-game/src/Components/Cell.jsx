@@ -36,7 +36,7 @@ const Cell = ({ inputValue, gameState, setGameState, row, col }) => {
     return (
         <div
             className={`h-16 w-16 flex items-center justify-center 
-            border-2 ${isValid ? 'border-gray-300' : 'border-red-500'} ${isEditable? 'bg-gray-200': 'bg-yellow-200'}`}
+            border-2 ${isValid ? 'border-gray-300' : 'border-red-500 border-4'} ${isEditable? 'bg-gray-200': 'bg-yellow-200'}`}
         >
             <input
                 type="number"

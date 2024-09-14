@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Board from "./Components/Board";
 import Controls from "./Components/Controls";
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 function App() {
   const [difficulty, setDifficulty] = useState(-1);
@@ -18,7 +19,10 @@ function App() {
       <div className="flex flex-col flex-grow justify-center items-center space-y-8">
         <Controls setDifficulty={setDifficulty} />
         {difficulty > -1 && (
-          <Board key={key} difficulty={difficulty} />
+          <div className="flex flex-col items-center space-y-11">
+            <Board key={key} difficulty={difficulty} />
+            <Footer setKey={setKey}/>
+          </div>
         )}
       </div>
     </div>
